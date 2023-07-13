@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form id="productForm">
+        <label for="name">Nombre del producto:</label>
+        <input type="text" id="name" name="name" required>
+    
+        <label for="price">Precio:</label>
+        <input type="number" id="price" name="price" required>
+    
+        <button type="submit">Agregar</button>
+    </form>
+    
+    <ul id="productList">
+        <!-- Aquí se mostrarán los productos -->
+    </ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+    // Selección de elementos del DOM
+        const productForm = document.getElementById('productForm');
+        const productList = document.getElementById('productList');
+
+    // Función para agregar un producto
+    function addProduct() {
+        const nameInput = document.getElementById('name');
+        const priceInput = document.getElementById('price')};
+
+        // Escucha el evento 'newProduct' desde el servidor
+        socket.on('newProduct', (product) => {
+            // Crear un nuevo elemento de lista para el producto
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+    <span>${product.name} - $${product.price}</span>
+    <button onclick="deleteProduct(${product.id})">Eliminar</button>
+    `});
+
+
+        // Escucha el evento 'deleteProduct' desde el servidor
+        socket.on('deleteProduct', (productId) => {
+             // Buscar el elemento de lista correspondiente al producto y eliminarlo
+            const listItem = document.querySelector(`li[data-product-id="${productId}"]`);
+            if (listItem) {
+                listItem.remove();
+            }
+        });
+
+        // Función para enviar un nuevo producto al servidor
+        function addProduct() {
+            const product = {
+                // Obtener los valores del formulario
+                const name = nameInput.value;
+                const price = parseFloat(priceInput.value);
+                // Validar que se ingresen valores válidos
+                if(name.trim() === '' || isNaN(price)) {
+                    alert('Por favor, ingresa valores válidos para el producto.');
+            return;
+                // Crear un objeto con los datos del producto
+                const product = {
+                    name,
+                    price,
+                };
+                }
+            };
+
+            // Envía el evento 'newProduct' al servidor
+            socket.emit('newProduct', product);
+        };
+
+        // Función para eliminar un producto existente
+        function deleteProduct(productId) {
+            // Envía el evento 'deleteProduct' al servidor
+            socket.emit('deleteProduct', productId);
+        }
+         // Limpiar los campos del formulario
+            nameInput.value = '';
+            priceInput.value = '';
+
+        // Escucha el evento 'submit' del formulario
+        productForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+        addProduct();
+        });
+
+  // Agregar el nuevo elemento de lista al contenedor de la lista de productos
+  productList.appendChild(listItem);
+
+    </script>
+
+</body>
+</html>
