@@ -4,14 +4,14 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const exphbs = require('express-handlebars');
 
-// Configuración de Express y Handlebars
+// Configuración de Express y Handlebars.
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
-// Configuración del directorio de vistas
+// Configuración del directorio de vistas.
 app.set('views', __dirname + '/views');
 
-// Configuración del servidor de archivos estáticos
+// Configuración del servidor de archivos estáticos.
 app.use(express.static('public'));
 
 // Rutas
@@ -23,14 +23,34 @@ app.get('/realtimeproducts', (req, res) => {
   res.render('realTimeProducts');
 });
 
-// Configuración del WebSocket
+// Configuración del WebSocket.
 io.on('connection', (socket) => {
   console.log('Cliente conectado');
 
   // Escucha el evento 'newProduct' desde el cliente
   socket.on('newProduct', (product) => {
-    // lógica para guardar el nuevo producto en la base de datos
+    // Función para agregar un nuevo producto
+  const agregarProducto = async (nombre, precio) => {
+    try {
+    // Crear un nuevo producto en la base de datos
+      const nuevoProducto = await Producto.create({ nombre, precio });
+    
+      return nuevoProducto;
+    } catch (error) {
+    console.error('Error al agregar producto:', error);
+    throw error;
+  }
+};
 
+// Uso de la función para agregar un producto
+agregarProducto('Nuevo Producto', 19.99)
+  .then((producto) => {
+    console.log('Producto agregado:', producto);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+});
+    
     // Emite el evento 'newProduct' a todos los clientes conectados
     io.emit('newProduct', product);
   });

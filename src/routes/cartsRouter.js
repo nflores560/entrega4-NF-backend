@@ -12,7 +12,7 @@ const { v4: uuidv4 } = require('uuid');
 const app = express();
 app.use(express.json());
 
-// Rutas para carritos
+// Rutas para carritos.
 const cartsRouter = express.Router();
 
 // Ruta POST /api/carts/
@@ -105,7 +105,7 @@ app.post('/:cid/product/:pid', (req, res) => {
 
 app.use('/api/carts', cartsRouter);
 
-// Iniciar el servidor en el puerto 8080
+// Iniciar el servidor en el puerto 8080.
   app.listen(8080, () => {
     console.log('Server running in port 8080')
   });

@@ -25,7 +25,6 @@ socketServer.on('connection', socket => {
     socket.on('message', data => {
         console.log(data);
     })
-    
 });
 
 //parámetros de config

@@ -53,13 +53,13 @@
             }
         });
 
-        // Función para enviar un nuevo producto al servidor
+        // Función para enviar un nuevo producto al servidor.
         function addProduct() {
             const product = {
                 // Obtener los valores del formulario
                 const name = nameInput.value;
                 const price = parseFloat(priceInput.value);
-                // Validar que se ingresen valores válidos
+                // Validar que se ingresen valores válidos.
                 if(name.trim() === '' || isNaN(price)) {
                     alert('Por favor, ingresa valores válidos para el producto.');
             return;

@@ -21,6 +21,7 @@ app.get('/products', (req, res) => {
   });
 });
 
+
 // Ruta GET /api/products/:pid
 app.get('/:pid', (req, res) => {
   const productId = req.params.pid;
@@ -41,6 +42,7 @@ app.get('/:pid', (req, res) => {
     res.json(product);
   });
 });
+
 
 // Ruta POST /api/products/
 app.post('/', (req, res) => {
@@ -93,7 +95,7 @@ app.put('/:pid', (req, res) => {
       return res.status(404).json({ error: 'Producto no encontrado' });
     }
 
-    // Actualizar los campos del producto
+    // Actualizar los campos del producto.
     product.title = req.body.title;
     product.description = req.body.description;
     product.code = req.body.code;

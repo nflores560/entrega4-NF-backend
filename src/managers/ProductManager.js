@@ -50,7 +50,7 @@ class ProductManager {
     const productIndex = this.products.findIndex(product => product.id === idProduct);
 
     if (productIndex === -1) {
-      console.log("Not found");
+      console.log("Not Found");
       return;
     }
 
@@ -62,7 +62,7 @@ class ProductManager {
     const productIndex = this.products.findIndex(product => product.id === idProduct);
 
     if (productIndex === -1) {
-      console.log("Not found");
+      console.log("Not Found");
       return;
     }
 
@@ -75,7 +75,7 @@ class ProductManager {
     const productIndex = this.products.findIndex(product => product.id === idProduct);
 
     if (productIndex === -1) {
-      console.log("Not found");
+      console.log("Not Found");
       return;
     }
 
@@ -107,7 +107,7 @@ app.get('/products/:pid', (req, res) => {
     if(product) {
         res.json(product);
     } else {
-        res.status(404).json({ error: 'Product not found' });
+        res.status(404).json({ error: 'Product not Found' });
     }
 });
 
